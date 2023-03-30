@@ -22,18 +22,17 @@ func main() {
 		// ** POST icin : curl -XPOST localhost:8080/shipments -d '{"ID":3,"Address":"Ankara","Status":"On the way"}' -v olsun
 		if request.Method == http.MethodPost {
 			// ** post gelmisse veriyi okuyalim
-			readedByteArray, error := io.ReadAll(request.Body)
-			if error != nil {
-				http.Error(writer, error.Error(), http.StatusInternalServerError)
+			readedByteArray, readError := io.ReadAll(request.Body)
+			if readError != nil {
+				http.Error(writer, readError.Error(), http.StatusInternalServerError)
 			}
 
 			// ** hata yoksa datayi jsondan ceviricez
 			var shipment Shipment
-			error2 := json.Unmarshal(readedByteArray, &shipment) // ** neyi ceviriyoruz ve neye ceviriyoruz
-			if error2 != nil {
-				http.Error(writer, error.Error(), http.StatusInternalServerError)
-			}
-
+			unmarshalError := json.Unmarshal(readedByteArray, &shipment) // ** neyi ceviriyoruz ve neye ceviriyoruz
+			if unmarshalError != nil {
+				http.Error(writer, unmarshalError.Error(), http.StatusInternalServerError)
+			}     
 			fmt.Println(shipment)
 			writer.WriteHeader(http.StatusCreated)
 			return
