@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,7 +13,9 @@ type Proxy interface {
 }
 
 // ILK OLARAK RATE LIMITING PROXYSI YAPICAZ
-var Proxies = []Proxy{}
+var Proxies = []Proxy{
+	NewLimitProxy("user", 3, 3*time.Minute),
+}
 
 func ProxyHandler(c *fiber.Ctx) error {
 	for _, i := range Proxies {

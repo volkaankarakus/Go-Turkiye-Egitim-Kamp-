@@ -79,5 +79,34 @@ func main() {
 	// ** Bizim denedigimiz sey ornek olarak : google.com/asdsdfdsf/sdfsdfsd'tan gelen response'u
 	// **    localhost:3000/user/sdfsdfsfsdf/sdfsdfsdf7sdfsdfsdfsdf'tan dönen response olarak dönmeye calisicaz.
 
-	
+	// ** build alip durumuna bakalım
+	// go build .
+	// ./103-http
+
+	// ┌───────────────────────────────────────────────────┐
+	// │                   Fiber v2.43.0                   │
+	// │               http://127.0.0.1:3000               │
+	// │       (bound on host 0.0.0.0 and port 3000)       │
+	// │                                                   │
+	// │ Handlers ............. 4  Processes ........... 1 │
+	// │ Prefork ....... Disabled  PID .............. 9457 │
+	// └───────────────────────────────────────────────────┘
+
+	// Simdi yeni bir terminalde istek atalim :
+	// curl -v http://localhost:3000/GoTurkiye/sdfsdfsddsf
+
+	// * Connected to localhost (127.0.0.1) port 3000 (#0)
+	// > GET /GoTurkiye/sdfsdfsddsf HTTP/1.1
+	// > Host: localhost:3000
+	// > User-Agent: curl/7.86.0
+	// > Accept: */*
+	// >
+	// * Mark bundle as not supporting multiuse
+	// < HTTP/1.1 404 Not Found // **  404 NOT FOUND !!!!!!!!!!!!!
+	// < Date: Mon, 03 Apr 2023 10:15:34 GMT
+	// < Content-Length: 0
+	// ** Görüldügü gibi calisti calismasina ama hicbirsey donmedi.
+
+	// Artik limit proxy'i implement edebiliriz (limit.go ac)
+
 }
