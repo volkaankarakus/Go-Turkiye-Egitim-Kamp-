@@ -1,0 +1,28 @@
+Reverse proxy'de 2 tane implementasyon olucak.
+1 : Rate Limiting 
+  Bir endpointe (sunucuya) gitmek istiyorsak örnek olarak dakikada 10 tane gelsin. 11. istegi sunucuma indirmesin gibi
+
+2 : Caching
+    Arka tarafa giden istegi 3 dakika boyunca cache'le. Bu cachei 3 dakika boyunca dön ve 3 dakika boyunca arka tarafa hiç gitme tarzı
+
+REVERSE PROXY DEDIGIMIZ OLAY : KULLANICI ILE ARKA TARAFTAKI WEB SERVERLAR ARASINA GIREN SUNUCU DIYEBİLİRİZ.
+
+Web sitesine bir istek attıgımızı dusunelim. Web sitesinin arka planında istiyosa 100 tane sunucu olsun ister 1 tane sunucu olsun. Bunu yoneten bir sistem var.
+Kullanıcıya sonucta 100 tane sunucu adresi vermiyoruz. Bunun yerine 1 tane reverse proxy tanımlıyoruz. 
+Reverse proxye de sunucuları IPleri ile tanımladıktan sonra domain name'in arkasına veriyoruz.
+
+
+NET/HTTP ve VALYALA/FASTHTTP var.
+net/http : Bundan tureyen 2 tane web framework var. Web frameworkun icerisinde http istegini bizim ilgili handlerlarimiza yonlendirmesini 
+    saglayan bir router olması lazım. Bize bunu cesitli utiller saglar.
+    Mesela :
+        QueryStringten int deger almak istiyoruzdur her seferinde casting yapmak zorunda kalmayalim.
+        Bunu yapan en popüler : GIN,ECHO,GORILLA/MUX tarzı web framework implementasyonları var.
+    
+
+fasthttp : net/http'nin tum ozelliklerini saglar. fasthttp'yi kullanan da web frameworkler var. (FIBER) -> BIRIM ZAMANDA EN COK REQUEST HANDLE EDER.
+
+-----------------------------------------------------------------------------------------------------------------------------
+Go'da uygulama yazdıgımız zaman ilk olarak ihtiyacımız olan sey main.go
+Bir paketi build ediceksek bu paketin build edildikten sonra ilk cagrılacak fonksiyon main fonksiyonu.
+
