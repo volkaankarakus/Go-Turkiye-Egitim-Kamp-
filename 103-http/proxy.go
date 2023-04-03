@@ -14,7 +14,9 @@ type Proxy interface {
 
 // ILK OLARAK RATE LIMITING PROXYSI YAPICAZ
 var Proxies = []Proxy{
-	NewLimitProxy("user", 3, 3*time.Minute),
+	// NewLimitProxy("user", 3, 3*time.Minute),
+	NewCacheProxy("user", 3*time.Minute),  
+	NewCacheProxy("event", 3*time.Second),
 }
 
 func ProxyHandler(c *fiber.Ctx) error {
